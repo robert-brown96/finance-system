@@ -1,1 +1,3 @@
 server/node_modules/
+server/.env.test
+server/.env.development

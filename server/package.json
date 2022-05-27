@@ -15,7 +15,11 @@
   },
   "dependencies": {
     "@prisma/client": "^3.14.0",
+    "dotenv-cli": "^5.1.0",
     "express": "^4.18.1"
+  },
+  "prisma": {
+    "seed": "node prisma/seed.js"
   },
   "prettier": {
     "trailingComma": "none",
