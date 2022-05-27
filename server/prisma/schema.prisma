@@ -9,3 +9,16 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Book {
+  id Int @id @default(autoincrement())
+  name  String  @unique
+  PrimaryCurrency Currency @relation(fields: [primaryCurrencyId],references: [id])
+  primaryCurrencyId Int
+}
+
+model Currency {
+  id  Int  @id @default(autoincrement()) 
+  code String @unique
+  Books Book[]
+}
