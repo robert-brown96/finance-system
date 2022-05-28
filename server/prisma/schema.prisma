@@ -15,34 +15,37 @@ model Book {
   name              String   @unique
   PrimaryCurrency   Currency @relation(fields: [primaryCurrencyId], references: [id])
   primaryCurrencyId Int
-  created_at          DateTime           @default(now()) @db.Timestamp(6)
-  updated_at          DateTime           @default(now()) @updatedAt @db.Timestamp(6)
+  created_at        DateTime @default(now()) @db.Timestamp(6)
+  updated_at        DateTime @default(now()) @updatedAt @db.Timestamp(6)
 }
 
 model Currency {
-  id    Int    @id @default(autoincrement())
-  code  String @unique
-  Books Book[]
-  created_at          DateTime           @default(now()) @db.Timestamp(6)
-  updated_at          DateTime           @default(now()) @updatedAt @db.Timestamp(6)
+  id         Int      @id @default(autoincrement())
+  code       String   @unique
+  Books      Book[]
+  created_at DateTime @default(now()) @db.Timestamp(6)
+  updated_at DateTime @default(now()) @updatedAt @db.Timestamp(6)
 }
 
 model Account {
   number       Int         @id @unique
   name         String
-  accountType  String
-  type         AccountType @relation(fields: [accountType], references: [name])
-  parentNumber Int         @unique
-  parent       Account?    @relation("ParentAccount", fields: [parentNumber], references: [number])
+  rollup       Boolean @default(false)
+  account_type  String   
+  type         AccountType @relation(fields: [account_type], references: [name])
+  parent_number Int?         @unique
+  parent       Account?    @relation("ParentAccount", fields: [parent_number], references: [number])
   children     Account[]   @relation("ParentAccount")
-  created_at          DateTime           @default(now()) @db.Timestamp(6)
-  updated_at          DateTime           @default(now()) @updatedAt @db.Timestamp(6)
+  created_at   DateTime    @default(now()) @db.Timestamp(6)
+  updated_at   DateTime    @default(now()) @updatedAt @db.Timestamp(6)
 }
 
 enum AccountCategory {
   ASSET
   LIABILITY
   EQUITY
+  REVENUE
+  EXPENSE
 }
 
 model AccountType {
@@ -50,6 +53,6 @@ model AccountType {
   isExternal Boolean         @default(false)
   Accounts   Account[]
   category   AccountCategory
-  created_at          DateTime           @default(now()) @db.Timestamp(6)
-  updated_at          DateTime           @default(now()) @updatedAt @db.Timestamp(6)
+  created_at DateTime        @default(now()) @db.Timestamp(6)
+  updated_at DateTime        @default(now()) @updatedAt @db.Timestamp(6)
 }

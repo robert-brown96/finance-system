@@ -6,7 +6,9 @@
   "scripts": {
     "test": "jest",
     "migrate:postgres-test": "dotenv -e .env.test -- npx prisma migrate dev --name init",
-    "migrate:postgres-dev": "dotenv -e .env.development -- npx prisma migrate dev --name init"
+    "migrate:postgres-dev": "dotenv -e .env.development -- npx prisma migrate dev --name init",
+    "seed:test": "dotenv -e .env.test -- npx prisma db seed",
+    "seed:dev": "dotenv -e .env.development -- npx prisma db seed"
   },
   "author": "Bobby Brown",
   "license": "ISC",

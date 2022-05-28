@@ -29,16 +29,66 @@ const prisma = new PrismaClient();
             { name: "Long Term Liability", category: "LIABILITY" },
             { name: "Credit Card", category: "LIABILITY", isExternal: true },
             { name: "Retained Earnings", category: "EQUITY" },
-            { name: "Equity", category: "EQUITY" }
+            { name: "Equity", category: "EQUITY" },
+            { name: "Revenue", category: "REVENUE" },
+            { name: "Expense", category: "EXPENSE" }
         ];
         defaultAccountTypes.forEach(
             async a =>
                 await prisma.accountType.upsert({
                     where: { name: a.name },
-                    update: {
-                        category: a.category,
-                        isExternal: a.isExternal ? a.isExternal : false
-                    },
+                    update: a,
+                    create: a
+                })
+        );
+        const baseAccounts = [
+            {
+                number: 10000,
+                rollup: true,
+                name: "Bank Accounts",
+                type: {
+                    connect: { name: "Bank" }
+                }
+            },
+            {
+                number: 20000,
+                rollup: true,
+                name: "Credit Cards",
+                type: {
+                    connect: { name: "Credit Card" }
+                }
+            },
+            {
+                number: 30000,
+                rollup: true,
+                name: "Equity",
+                type: {
+                    connect: { name: "Equity" }
+                }
+            },
+            {
+                number: 40000,
+                rollup: true,
+                name: "Revenue",
+                type: {
+                    connect: { name: "Revenue" }
+                }
+            },
+            {
+                number: 60000,
+                rollup: true,
+                name: "Expenses",
+                type: {
+                    connect: { name: "Expense" }
+                }
+            }
+        ];
+
+        baseAccounts.forEach(
+            async a =>
+                await prisma.account.upsert({
+                    where: { number: a.number },
+                    update: a,
                     create: a
                 })
         );
