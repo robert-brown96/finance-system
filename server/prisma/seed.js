@@ -10,7 +10,6 @@ const prisma = new PrismaClient();
                 code: "USD"
             }
         });
-        console.log("Created a currency", usDollar);
         const primaryBook = await prisma.book.upsert({
             where: { name: "Primary Book" },
             update: {},
@@ -19,7 +18,6 @@ const prisma = new PrismaClient();
                 primaryCurrencyId: usDollar.id
             }
         });
-        console.log("Create Primary Book", primaryBook);
     } catch (e) {
         console.error(e);
         process.exit(1);

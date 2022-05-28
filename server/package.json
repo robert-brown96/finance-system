@@ -4,7 +4,9 @@
   "description": "Backend of Finance System",
   "main": "app.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "migrate:postgres-test": "dotenv -e .env.test -- npx prisma migrate dev --name init",
+    "migrate:postgres-dev": "dotenv -e .env.development -- npx prisma migrate dev --name init"
   },
   "author": "Bobby Brown",
   "license": "ISC",

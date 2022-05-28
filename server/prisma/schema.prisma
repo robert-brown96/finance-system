@@ -11,14 +11,31 @@ datasource db {
 }
 
 model Book {
-  id Int @id @default(autoincrement())
-  name  String  @unique
-  PrimaryCurrency Currency @relation(fields: [primaryCurrencyId],references: [id])
+  id                Int      @id @default(autoincrement())
+  name              String   @unique
+  PrimaryCurrency   Currency @relation(fields: [primaryCurrencyId], references: [id])
   primaryCurrencyId Int
 }
 
 model Currency {
-  id  Int  @id @default(autoincrement()) 
-  code String @unique
+  id    Int    @id @default(autoincrement())
+  code  String @unique
   Books Book[]
+}
+
+model Account {
+  number       Int         @id @unique
+  name         String
+  type         AccountType @relation(fields: [accountType], references: [name])
+  accountType  String
+  parentNumber Int         @unique
+  parent       Account?    @relation("ParentAccount", fields: [parentNumber], references: [number])
+  children     Account?    @relation("ParentAccount")
+}
+
+model AccountType {
+  name        String    @id @unique
+  description String
+  isExternal  Boolean   @default(false)
+  Accounts    Account[]
 }
