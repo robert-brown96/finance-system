@@ -26,16 +26,22 @@ model Currency {
 model Account {
   number       Int         @id @unique
   name         String
-  type         AccountType @relation(fields: [accountType], references: [name])
   accountType  String
+  type         AccountType @relation(fields: [accountType], references: [name])
   parentNumber Int         @unique
   parent       Account?    @relation("ParentAccount", fields: [parentNumber], references: [number])
-  children     Account?    @relation("ParentAccount")
+  children     Account[]   @relation("ParentAccount")
+}
+
+enum AccountCategory {
+  ASSET
+  LIABILITY
+  EQUITY
 }
 
 model AccountType {
-  name        String    @id @unique
-  description String
-  isExternal  Boolean   @default(false)
-  Accounts    Account[]
+  name       String          @id @unique
+  isExternal Boolean         @default(false)
+  Accounts   Account[]
+  category   AccountCategory
 }

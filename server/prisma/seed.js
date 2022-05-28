@@ -18,6 +18,14 @@ const prisma = new PrismaClient();
                 primaryCurrencyId: usDollar.id
             }
         });
+        const defaultAccountTypes = [
+            { name: "Bank", isExternal: true, category: "ASSET" },
+            { name: "Brokerage", isExternal: true, category: "ASSET" },
+            { name: "Accounts Receivable", category: "ASSET" },
+            { name: "Other Current Asset", category: "ASSET" },
+            { name: "Long Term Asset", category: "ASSET" },
+            {name:'Accounts Payable',category:'LIABILITY'}
+        ];
     } catch (e) {
         console.error(e);
         process.exit(1);
