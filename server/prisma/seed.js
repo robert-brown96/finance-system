@@ -12,7 +12,7 @@ const prisma = new PrismaClient();
         });
         const primaryBook = await prisma.book.upsert({
             where: { name: "Primary Book" },
-            update: {},
+            update: { primaryCurrencyId: usDollar.id },
             create: {
                 name: "Primary Book",
                 primaryCurrencyId: usDollar.id
@@ -31,6 +31,17 @@ const prisma = new PrismaClient();
             { name: "Retained Earnings", category: "EQUITY" },
             { name: "Equity", category: "EQUITY" }
         ];
+        defaultAccountTypes.forEach(
+            async a =>
+                await prisma.accountType.upsert({
+                    where: { name: a.name },
+                    update: {
+                        category: a.category,
+                        isExternal: a.isExternal ? a.isExternal : false
+                    },
+                    create: a
+                })
+        );
     } catch (e) {
         console.error(e);
         process.exit(1);

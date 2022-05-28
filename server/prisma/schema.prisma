@@ -15,12 +15,16 @@ model Book {
   name              String   @unique
   PrimaryCurrency   Currency @relation(fields: [primaryCurrencyId], references: [id])
   primaryCurrencyId Int
+  created_at          DateTime           @default(now()) @db.Timestamp(6)
+  updated_at          DateTime           @default(now()) @updatedAt @db.Timestamp(6)
 }
 
 model Currency {
   id    Int    @id @default(autoincrement())
   code  String @unique
   Books Book[]
+  created_at          DateTime           @default(now()) @db.Timestamp(6)
+  updated_at          DateTime           @default(now()) @updatedAt @db.Timestamp(6)
 }
 
 model Account {
@@ -31,6 +35,8 @@ model Account {
   parentNumber Int         @unique
   parent       Account?    @relation("ParentAccount", fields: [parentNumber], references: [number])
   children     Account[]   @relation("ParentAccount")
+  created_at          DateTime           @default(now()) @db.Timestamp(6)
+  updated_at          DateTime           @default(now()) @updatedAt @db.Timestamp(6)
 }
 
 enum AccountCategory {
@@ -44,4 +50,6 @@ model AccountType {
   isExternal Boolean         @default(false)
   Accounts   Account[]
   category   AccountCategory
+  created_at          DateTime           @default(now()) @db.Timestamp(6)
+  updated_at          DateTime           @default(now()) @updatedAt @db.Timestamp(6)
 }
