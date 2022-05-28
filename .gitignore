@@ -1,3 +1,4 @@
-server/node_modules/
-server/.env.test
-server/.env.development
+node_modules/
+.env.test
+.env.development
+finance-system.code-workspace
