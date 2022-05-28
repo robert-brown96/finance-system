@@ -24,7 +24,12 @@ const prisma = new PrismaClient();
             { name: "Accounts Receivable", category: "ASSET" },
             { name: "Other Current Asset", category: "ASSET" },
             { name: "Long Term Asset", category: "ASSET" },
-            {name:'Accounts Payable',category:'LIABILITY'}
+            { name: "Accounts Payable", category: "LIABILITY" },
+            { name: "Other Current Liability", category: "LIABILITY" },
+            { name: "Long Term Liability", category: "LIABILITY" },
+            { name: "Credit Card", category: "LIABILITY", isExternal: true },
+            { name: "Retained Earnings", category: "EQUITY" },
+            { name: "Equity", category: "EQUITY" }
         ];
     } catch (e) {
         console.error(e);
